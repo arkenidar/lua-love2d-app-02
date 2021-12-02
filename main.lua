@@ -7,18 +7,13 @@ return point[1]>=rectangle[1] and
     point[2]<=(rectangle[2]+rectangle[4])
 end  
 
----x,y=50,50
-local rectangle1={50,50,100,100}
-local rectangle2={150,150,100,100}
---ppx=nil -- Previous Position
---ppy=nil
 function rectangle_draw(rectangle)
 -- Mouse
 local mx=love.mouse.getX()
 local my=love.mouse.getY()
 local md=love.mouse.isDown(1)
 if point_in_rectangle_check({mx,my},rectangle) then
--- Difference/Delta for X
+-- Difference/Delta for X (Previous Position)
 local dx=0
 if md then
   if rectangle.ppx==nil then
@@ -31,7 +26,7 @@ else
   rectangle.ppx=nil
 end
 rectangle[1]=dx+rectangle[1]
--- Difference/Delta for Y
+-- Difference/Delta for Y (Previous Position)
 local dy=0
 if md then
   if rectangle.ppy==nil then
@@ -49,6 +44,8 @@ end -- end if
 love.graphics.rectangle("fill",rectangle[1],rectangle[2],rectangle[3],rectangle[4])
 end
 
+local rectangle1={50,50,100,100}
+local rectangle2={150,150,100,100}
 function love.draw()
 rectangle_draw(rectangle1)
 rectangle_draw(rectangle2)
