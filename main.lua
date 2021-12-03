@@ -65,13 +65,6 @@ local rectangles={rectangle1,rectangle2}
 function love.draw()
 -- grabbing (front-to-back)
 local grabbed
---[[
-grabbed=rectangle_grab(rectangle2)
-if not grabbed then
-  grabbed=rectangle_grab(rectangle1)
-end
---]]
-local grabbed
 local some_grabbed=false
 for i=#rectangles,1,-1 do
   grabbed=rectangle_grab(rectangles[i])
@@ -84,10 +77,6 @@ if not some_grabbed then
   currently_grabbed=nil
 end
 -- drawing (back-to-front)
---[[
-rectangle_draw(rectangle1)
-rectangle_draw(rectangle2)
---]]
 for i=1,#rectangles do
   rectangle_draw(rectangles[i])
 end
