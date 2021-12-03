@@ -7,7 +7,12 @@ return point[1]>=rectangle[1] and
     point[2]<=(rectangle[2]+rectangle[4])
 end  
 
+local currently_grabbed=nil
 function rectangle_grab(rectangle)
+if currently_grabbed~=nil and
+  currently_grabbed~=rectangle then
+    return false
+end
 -- Mouse
 local mx=love.mouse.getX()
 local my=love.mouse.getY()
@@ -40,7 +45,11 @@ else
 end
 rectangle[2]=dy+rectangle[2]
 end -- end if
-return rectangle.ppx~=nil
+local grabbed=rectangle.ppx~=nil
+if grabbed then
+  currently_grabbed=rectangle
+end
+return grabbed
 end -- end function
 
 function rectangle_draw(rectangle)
@@ -63,11 +72,16 @@ if not grabbed then
 end
 --]]
 local grabbed
+local some_grabbed=false
 for i=#rectangles,1,-1 do
   grabbed=rectangle_grab(rectangles[i])
   if grabbed then
+    some_grabbed=true
     break
   end
+end
+if not some_grabbed then
+  currently_grabbed=nil
 end
 -- drawing (back-to-front)
 --[[
