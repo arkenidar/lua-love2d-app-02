@@ -12,7 +12,7 @@ function rectangle_draw(rectangle)
 local mx=love.mouse.getX()
 local my=love.mouse.getY()
 local md=love.mouse.isDown(1)
-if point_in_rectangle_check({mx,my},rectangle) then
+if point_in_rectangle_check({mx,my},rectangle) or rectangle.ppx~=nil then
 -- Difference/Delta for X (Previous Position)
 local dx=0
 if md then
